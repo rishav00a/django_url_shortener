@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.db import models
 from django.utils.encoding import smart_text
-from django_hosts.resolvers import reverse
+from django.urls import reverse
 from .utils import create_shortcode
 from .validators import validate_url
 from django.contrib.auth import get_user_model
@@ -43,7 +43,7 @@ class ShortUrl(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ['-updated']
+        ordering = ['-updated_at']
 
     def save(self, *args, **kwargs):
         if self.shortcode is None or self.shortcode == "":
