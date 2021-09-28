@@ -4,7 +4,7 @@ Django URL Shortener
 
 Django URL Shortener is a Django app to to include URL Shortening feature in your Django Project
 
-Add this to your Django project using::
+Install this package to your Django project::
 
     python -m pip install git+https://github.com/rishav00a/django_url_shortener.git
 
@@ -22,7 +22,7 @@ Quick start
 
     path('s/', include('django_url_shortener.urls')),
 
-3. Run ``python manage.py migrate`` to create the polls models.
+3. Run ``python manage.py migrate`` to create the models.
 
 4. [Optional] Upate configs in settings.py::
 
