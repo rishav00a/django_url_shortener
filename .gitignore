@@ -1,1 +1,3 @@
 __pycache__/
+.pypirc
+.DS_Store

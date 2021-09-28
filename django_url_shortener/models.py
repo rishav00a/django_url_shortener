@@ -2,17 +2,31 @@ from django.conf import settings
 from django.db import models
 from django.utils.encoding import smart_text
 from django.urls import reverse
-from .utils import create_shortcode
 from .validators import validate_url
 from django.contrib.auth import get_user_model
 import werkzeug.security
+import random
+import string
+
+SHORTCODE_MIN = getattr(settings, "SHORTCODE_MIN", 4)
+SHORTCODE_MAX = getattr(settings, "SHORTCODE_MAX", 15)
+BASE_URL = getattr(settings, "BASE_URL", "http://127.0.0.1:8000")
 
 User = get_user_model()
 
-SHORTCODE_MAX = getattr(settings, "SHORTCODE_MAX", 15)
+def code_generator(size=SHORTCODE_MIN, chars=string.ascii_lowercase + string.digits + string.ascii_uppercase):
+        return ''.join(random.choice(chars) for _ in range(size))
 
+
+def create_shortcode(size=SHORTCODE_MIN):
+    new_code = code_generator(size=size)
+    qs_exists = ShortUrl.objects.filter(shortcode=new_code).exists()
+    if qs_exists:
+        return create_shortcode(size=size)
+    return new_code
 
 class ShortURLManager(models.Manager):
+    
     def all(self, *args, **kwargs):
         qs_main = super(ShortURLManager, self).all(*args, **kwargs)
         qs = qs_main.filter(active=True)
@@ -24,7 +38,7 @@ class ShortURLManager(models.Manager):
             qs = qs.order_by('-id')[:items]
         new_codes = 0
         for q in qs:
-            q.shortcode = create_shortcode(q)
+            q.shortcode = create_shortcode()
             print(q.id)
             q.save()
             new_codes += 1
@@ -47,8 +61,8 @@ class ShortUrl(models.Model):
 
     def save(self, *args, **kwargs):
         if self.shortcode is None or self.shortcode == "":
-            self.shortcode = create_shortcode(self)
-        if self.pk==None and self.password:
+            self.shortcode = create_shortcode()
+        if self.pk is None and self.password:
             self.password = werkzeug.security.generate_password_hash(self.password)
         if not "http" in self.url:
             self.url = "http://" + self.url
@@ -61,7 +75,7 @@ class ShortUrl(models.Model):
         return smart_text(self.url)
 
     def get_short_url(self):
-        url_path = reverse("scode", kwargs={'shortcode': self.shortcode}, host='url', scheme='https')
+        url_path = BASE_URL+reverse("scode", kwargs={'shortcode': self.shortcode})
         return url_path
 
 

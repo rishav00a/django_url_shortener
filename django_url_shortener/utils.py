@@ -1,20 +1,19 @@
-import random
-import string
-from django.conf import settings
+from . import models
+
+def shorten_url(long_url, shortcode=None):
+    if shortcode:
+        if not models.ShortUrl.objects.filter(shortcode=shortcode).exists():
+            obj = models.ShortUrl.objects.create(
+                url = long_url,
+                shortcode = shortcode
+            )
+        else:
+            return False, "Shortcode not available"
+    else:
+        try:
+            obj, _ = models.ShortUrl.objects.get_or_create(url= long_url)
+        except Exception as e:
+            return False, str(e), 
+    return True, obj.get_short_url()
 
 
-SHORTCODE_MIN = getattr(settings, "SHORTCODE_MIN", 4)
-SHORTCODE_MAX = getattr(settings, "SHORTCODE_MAX", 15)
-
-
-def code_generator(size=SHORTCODE_MIN, chars=string.ascii_lowercase + string.digits + string.ascii_uppercase):
-    return ''.join(random.choice(chars) for _ in range(size))
-
-
-def create_shortcode(instance, size=SHORTCODE_MIN):
-    new_code = code_generator(size=size)
-    Klass = instance.__class__
-    qs_exists = Klass.objects.filter(shortcode=new_code).exists()
-    if qs_exists:
-        return create_shortcode(instance, size=size)
-    return new_code

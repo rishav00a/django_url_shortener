@@ -7,7 +7,6 @@ django_url_shortener/__init__.py
 django_url_shortener/admin.py
 django_url_shortener/apps.py
 django_url_shortener/models.py
-django_url_shortener/setup.py
 django_url_shortener/tests.py
 django_url_shortener/urls.py
 django_url_shortener/utils.py
