@@ -1,4 +1,3 @@
-=====
 Django URL Shortener
 =====
 
@@ -6,7 +5,7 @@ Django URL Shortener is a Django app to to include URL Shortening feature in you
 
 Install this package to your Django project::
 
-    python -m pip install git+https://github.com/rishav00a/django_url_shortener.git
+    pip install django-url-shortener-app
 
 Quick start
 -----------

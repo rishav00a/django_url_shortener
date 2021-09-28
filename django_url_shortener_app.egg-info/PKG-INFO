@@ -1,5 +1,5 @@
-Metadata-Version: 1.2
-Name: django-url-shortener
+Metadata-Version: 2.1
+Name: django-url-shortener-app
 Version: 0.1
 Summary: Django URL Shortener is a Django app to to include URL Shortening feature in your Django Project.
 Home-page: https://github.com/rishav00a/django_url_shortener
@@ -58,3 +58,4 @@ Classifier: Programming Language :: Python :: 3.8
 Classifier: Topic :: Internet :: WWW/HTTP
 Classifier: Topic :: Internet :: WWW/HTTP :: Dynamic Content
 Requires-Python: >=3.6
+Description-Content-Type: text/markdown
