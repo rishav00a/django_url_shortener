@@ -1,6 +1,6 @@
-=====
+=====================
 Django URL Shortener
-=====
+=====================
 
 Django URL Shortener is a Django app to to include URL Shortening feature in your Django Project
 
