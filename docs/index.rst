@@ -1,7 +1,3 @@
-.. django-url-shortener-app documentation master file, created by
-   sphinx-quickstart on Wed Sep 29 18:40:40 2021.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
 
 =====================
 Django URL Shortener
@@ -12,6 +8,15 @@ Django URL Shortener is a Django app to to include URL Shortening feature in you
 Install this package to your Django project::
 
     pip install django-url-shortener-app
+
+
+Links
+-------
+
+`Github <https://github.com/rishav00a/django_url_shortener>`_
+
+`PyPI <https://pypi.org/project/django-url-shortener-app/>`_
+
 
 Quick start
 -----------
@@ -40,6 +45,16 @@ Quick start
     from django_url_shortener.utils import shorten_url
 
 6. Shorten your URL::
+
+    created, message = shorten_url(long_url, short_code)
+    '''
+    long_url: String : Required
+    short_code: String : Optional
+    created: Boolean : True if url shortened successfully
+    message: String : created short url will be returned if url shortened successfully, othewrwise error message will be returned
+    '''
+    
+7. Example Usage::
 
     created, short_url = shorten_url("https://github.com/rishav00a/django_url_shortener")
     created, short_url = shorten_url("https://github.com/rishav00a/django_url_shortener/issues","xyzw")
