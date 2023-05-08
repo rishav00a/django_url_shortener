@@ -7,6 +7,7 @@ Django URL Shortener is a Django app to to include URL Shortening feature in you
 
 Install this package to your Django project::
 
+    pip install Werkzeug
     pip install django-url-shortener-app
 
 
