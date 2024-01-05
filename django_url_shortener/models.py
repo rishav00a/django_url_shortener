@@ -1,6 +1,9 @@
 from django.conf import settings
 from django.db import models
-from django.utils.encoding import smart_text
+try:
+    from django.utils.encoding import smart_text
+except:
+    from django.utils.encoding import smart_str as smart_text
 from django.urls import reverse
 from .validators import validate_url
 from django.contrib.auth import get_user_model
